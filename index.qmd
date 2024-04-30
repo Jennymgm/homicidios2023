@@ -1,0 +1,71 @@
+---
+title: "Analisis de homicidios cometidos en costa rica en 2023"
+author: "Jenny Gonzalez"
+format: html
+---
+
+# Introduccion
+Este documento presenta un conjunto de graficos de homicidios cometidos en costa rica durante el año 2023 deacuerdo a los datos del organismo de investigacion judicial (OIJ)
+
+# Lectura de datos
+
+```{r}
+#| label: lectura-datos
+
+delitos_2023 <-
+  read.csv("estadisticaspoliciales2023.csv")
+```
+
+# Filtrado de homicidios
+
+```{r}
+#| label: filtrado-homicidios
+
+homicidios_2023 <-
+  delitos_2023[delitos_2023$Delito == "HOMICIDIO", ]
+```
+
+# Homicidios por provincia
+
+```{r}
+#| label: grafico-barra-homicidios-x-provincia
+
+# Conteo de homicidios
+homicidios_x_provincia <- table(homicidios_2023$Provincia)
+
+# Ordenamiento de la tabla de homicidios por provincia
+homicidios_x_provincia <- sort(homicidios_x_provincia, decreasing = TRUE)
+
+# Grafico de barras
+barplot(
+  height = homicidios_x_provincia
+)
+
+
+
+```
+
+# Homicidios por canton 
+
+```{r}
+#| label: grafico-barras-homicidios-x-canton
+
+# Conteo de homicidios
+homicidios_x_canton <- table(homicidios_2023$Canton)
+
+# Ordenamiento de la tabla de homicidios por provincia
+homicidios_x_canton <- sort(homicidios_x_canton, decreasing = TRUE)
+
+# Grafico de barras
+barplot(
+  height = homicidios_x_canton,
+  las = 2,
+  cex.names = 0.8
+)
+
+
+```
+
+
+
+
